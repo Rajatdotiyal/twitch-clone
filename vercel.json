@@ -1,3 +1,8 @@
 {
+<<<<<<< HEAD
     "installCommand": "npm install --legacy-peer-deps"
   }
+=======
+  "installCommand": "npm install --legacy-peer-deps"
+}
+>>>>>>> a368ec1d56363dd088a4c5ab0becb4f61b63950f
