@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 export function ChatToggle() {
   const { collapsed, onExpand, onCollapse } = useChatSidebar((state) => state);
 
-  let Icon = collapsed ? ArrowLeftFromLine : ArrowRightFromLine;
+  const Icon = collapsed ? ArrowLeftFromLine : ArrowRightFromLine;
 
   const onToggle = () => {
     if (collapsed) {

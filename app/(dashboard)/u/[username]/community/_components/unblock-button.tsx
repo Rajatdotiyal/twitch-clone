@@ -1,30 +1,38 @@
-"use client"
+"use client";
 
 import { onUnBlock } from "@/actions/block";
 import { Button } from "@/components/ui/button";
-import { startTransition, useTransition } from "react";
+import { useTransition } from "react";
 import { toast } from "sonner";
 
-interface UnblockButtonProps{
-   userId : string;
-
+interface UnblockButtonProps {
+  userId: string;
 }
 
-export function UnBlockButton({userId} : UnblockButtonProps){
+export function UnBlockButton({ userId }: UnblockButtonProps) {
+  const [isPending, startTransition] = useTransition();
 
-const [isPending,starttransition] = useTransition();
+  const onClick = () => {
+    startTransition(() => {
+      onUnBlock(userId)
+        .then((result) =>
+          toast.success(`User ${result.blocked.username} unblocked`)
+        )
+        .catch(() => toast.error("Something went wrong"));
+    });
+  };
 
-const onClick = () =>{
-    startTransition(()=>{
-        onUnBlock(userId)
-        .then((result)=> toast.success(`User ${result.blocked.username} unblocked` ))
-        .catch(()=>toast.error("Something went wrong"))
-    })
-}
-
-return<>
-<Button disabled={isPending} onClick={onClick} variant="ghost" size="sm" className="text-blue-500 w-full">
-    Unblock
-</Button>
-</>
+  return (
+    <>
+      <Button
+        disabled={isPending}
+        onClick={onClick}
+        variant="ghost"
+        size="sm"
+        className="text-blue-500 w-full"
+      >
+        Unblock
+      </Button>
+    </>
+  );
 }

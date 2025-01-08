@@ -9,7 +9,7 @@ interface SearchPageProps{
    }
 }
 
-export default function({searchParams}:SearchPageProps){
+export default function SearchPage({searchParams}:SearchPageProps){
     if(!searchParams){
         redirect("/")
     }
