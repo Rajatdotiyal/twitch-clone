@@ -19,13 +19,13 @@ export async function onBlock(id: string){
     try{
         blockedUser = await blockUser(id);
     }catch{
-
+        throw new Error("Internal Error");
     }
 
     try{
         await roomService.removeParticipant(self.id,id)
     }catch{
-
+        throw new Error("Internal Error");
     }
     revalidatePath(`/u/${self.username}/community`)
     return blockedUser;
