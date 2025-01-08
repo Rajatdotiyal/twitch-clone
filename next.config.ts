@@ -1,15 +1,16 @@
 import type { NextConfig } from "next";
-import webpack, { Configuration, WebpackPluginInstance } from "webpack";
-
+import  { Configuration, WebpackPluginInstance } from "webpack";
 const nextConfig: NextConfig = {
-  reactStrictMode: true, // Enabling strict mode for React
+  reactStrictMode: true, 
   images: {
-    domains: ["utfs.io"], // Allow images from specific domains
+    remotePatterns: [{
+      protocol: "https", 
+      hostname: "utfs.io",
+    }],
   },
 
   webpack: (config: Configuration, { isServer, webpack }) => {
     if (!isServer) {
-      // Add fallbacks for the 'stream' and 'crypto' modules
       config.resolve = {
         ...config.resolve,
         fallback: {
@@ -19,7 +20,6 @@ const nextConfig: NextConfig = {
         },
       };
 
-      // Add necessary Webpack plugins for polyfills
       config.plugins = [
         ...(config.plugins || []),
         new webpack.ProvidePlugin({
